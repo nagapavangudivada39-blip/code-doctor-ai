@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeDoctor AI</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Highlight -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+  <h1>🤖 CodeDoctor AI</h1>
+
+  <div id="chat"></div>
+
+  <div class="input-area">
+    <select id="language">
+      <option value="javascript">JavaScript</option>
+      <option value="python">Python</option>
+      <option value="java">Java</option>
+    </select>
+
+    <input id="input" placeholder="Paste your error..." />
+
+    <button onclick="analyzeError()">Send</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
