@@ -11,7 +11,7 @@ async function analyzeError() {
   chat.innerHTML += `<div class="message bot">⏳ Thinking...</div>`;
 
   try {
-    const response = await fetch("https://YOUR-RENDER-URL/analyze", {
+    const response = await fetch("https://code-doctor-ai.onrender.com/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
