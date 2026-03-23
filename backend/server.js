@@ -19,6 +19,7 @@ app.post("/analyze", (req, res) => {
       confidence: "Low"
     };
 
+    // 🔥 MAP ERROR
     if (err.includes("map")) {
       result = {
         problem: "Using map on undefined array",
@@ -28,19 +29,32 @@ app.post("/analyze", (req, res) => {
       };
     }
 
-    else if (err.includes("not defined")) {
+    // 🔥 LENGTH ERROR
+    else if (err.includes("length")) {
       result = {
-        problem: "Variable is not defined",
-        solution: "Declare variable before using",
-        code: language === "python"
-          ? "x = 10\nprint(x)"
-          : language === "java"
-          ? "int x = 10;\nSystem.out.println(x);"
-          : "let x = 10;\nconsole.log(x);",
+        problem: "Trying to access length of undefined",
+        solution: "Ensure variable exists before accessing length",
+        code: "if(arr){ console.log(arr.length); }",
         confidence: "High"
       };
     }
 
+    // 🔥 NOT DEFINED
+    else if (err.includes("not defined")) {
+      result = {
+        problem: "Variable is not defined",
+        solution: "Declare variable before using",
+        code:
+          language === "python"
+            ? "x = 10\nprint(x)"
+            : language === "java"
+            ? "int x = 10;\nSystem.out.println(x);"
+            : "let x = 10;\nconsole.log(x);",
+        confidence: "High"
+      };
+    }
+
+    // 🔥 NULL ERROR
     else if (err.includes("null") || err.includes("of null")) {
       result = {
         problem: "Trying to access property of null",
@@ -50,6 +64,17 @@ app.post("/analyze", (req, res) => {
       };
     }
 
+    // 🔥 UNDEFINED GENERAL
+    else if (err.includes("undefined")) {
+      result = {
+        problem: "Trying to access property of undefined",
+        solution: "Check variable before using it",
+        code: "if(variable){ /* safe access */ }",
+        confidence: "High"
+      };
+    }
+
+    // 🔥 FETCH ERROR
     else if (err.includes("fetch")) {
       result = {
         problem: "API request failed",
@@ -66,6 +91,7 @@ app.post("/analyze", (req, res) => {
   }
 });
 
+// 🔥 IMPORTANT FOR RENDER
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
